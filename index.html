@@ -1,0 +1,44 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="stmarkdown.css">
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+</head>
+<h1><a href="#hw4" id="hw4">HW4</a></h1>
+<h3><a href="#chuyi-sun" id="chuyi-sun">Chuyi Sun</a></h3>
+<p><strong>Background:</strong></p>
+<p>Comparing between normal distribution and t distribution. Practice embedding stata result and graph in .html.</p>
+<p><strong>Methods:</strong> Initialze a dataset with 30 observations. Generated an age variable from a normal distribution with a mean age of 57 years old and a standard deviation of 15, and another age variables from a t distribution, compare these two variables with theorical normal distribution in histrogram.</p>
+<pre><code>. clear
+
+. 
+. // Initialize dataset with 30 observations 
+. set obs 30
+
+. // Create an age variable with from normal distribution with a mean of 57 years
+&gt;  and a standard deviation of 15.
+. gen age = (rnormal() * 15) + 57
+
+. // simulate a t-distribution.
+. gen age_t=(rt(_N)*15)+57
+
+. 
+. hist age, ///
+&gt;    fcolor(orange%40) /// simulated normal 
+&gt;    addplot(hist age_t, fcolor(midblue%50)) /// simulated t-distribution 
+&gt;    normal /// theoretical normal
+&gt;    legend(on ///
+&gt;       lab(1 &quot;Sampled from Normal&quot;) ///
+&gt;           lab(2 &quot;Theoretical Normal&quot;) ///
+&gt;           lab(3 &quot;Sampled from t-distribution&quot;) ///
+&gt;           )
+
+. graph export age_histogram.png, replace 
+
+</code></pre>
+<p><img src="Graph.svg" ></p>
+<p><strong>Conclusions:</strong> We plot t distribution and distribution of $\text{Age, years} \sim \mathcal{N}(\mu=57,,\sigma^{2}=225)$. We only generate 30 observations, the histogram of t distribution is not perfectly normal.</p>
+<p><strong>Footnotes:</strong> Results are based on simulated data.</p>
